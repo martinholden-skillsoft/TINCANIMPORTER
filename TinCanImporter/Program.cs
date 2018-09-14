@@ -84,6 +84,7 @@ namespace TinCanImporter
         /// <returns></returns>
         private static Statement GetStatement(SkillportUsageRecord usageRecord)
         {
+
             var agent = new Agent();
             agent.name = usageRecord.FULLNAME();
             agent.account = new AgentAccount();
@@ -94,6 +95,13 @@ namespace TinCanImporter
             verb.id = new Uri("http://adlnet.gov/expapi/verbs/launched");
             verb.display = new LanguageMap();
             verb.display.Add("en-US", "launched");
+
+
+            //This will be used for generating a UUID for the statement
+            //We incorporate the site, userid, assetpath, verb id, lastaccessdate
+            //if completed we also add completed date
+            //The dates are included so we can support multiple completions.
+            string uniqueString = String.Join("~", usageRecord.SKILLPORTSITE, usageRecord.SKILLPORTID, usageRecord.ASSETUNIQUEPATH, verb.id, usageRecord.LASTACCESSDATESTAMP()).ToUpperInvariant();
 
             Result result = null;
 
@@ -109,13 +117,19 @@ namespace TinCanImporter
                 result.completion = true;
                 result.success = true;
                 result.duration = usageRecord.DURATIONTIMESPAN();
-                result.score = new Score();
-                result.score.min = usageRecord.SCOREMIN;
-                result.score.max = usageRecord.SCOREMAX;
-                result.score.raw = usageRecord.SCORERAW();
-                result.score.scaled = usageRecord.SCORESCALED();
+
+                if (usageRecord.SCORERAW() != null)
+                {
+                    result.score = new Score();
+                    result.score.min = usageRecord.SCOREMIN;
+                    result.score.max = usageRecord.SCOREMAX;
+                    result.score.raw = usageRecord.SCORERAW();
+                    result.score.scaled = usageRecord.SCORESCALED();
+                }
 
                 timeStampToUse = usageRecord.COMPLETEDDATESTAMP();
+
+                uniqueString = String.Join("~", uniqueString, usageRecord.COMPLETEDDATESTAMP()).ToUpperInvariant();
             }
 
             var activity = new Activity();
@@ -134,6 +148,17 @@ namespace TinCanImporter
             {
                 statement.result = result;
             }
+
+
+
+
+
+            //Now we need to create a unique ID for this user/activityid so we can avoid duplicating
+            //We will do this by concatenating
+            Guid namespaceGuid = Helpers.GuidUtility.Create(Helpers.GuidUtility.UrlNamespace, usageRecord.SKILLPORTSITE);
+            Guid statementGuid = Helpers.GuidUtility.Create(namespaceGuid, uniqueString);
+
+            statement.id = statementGuid;
 
             if (log.IsTraceEnabled)
             {

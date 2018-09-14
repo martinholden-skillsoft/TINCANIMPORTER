@@ -73,6 +73,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\GuidUtility.cs" />
     <Compile Include="Helpers\Networking.cs" />
     <Compile Include="Model\Options.cs" />
     <Compile Include="Model\SkillportUsageRecord.cs" />
@@ -85,6 +86,9 @@
     <None Include="languagemap.xlsx" />
     <None Include="Logging.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="USAGE - Copy.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="USAGE.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
