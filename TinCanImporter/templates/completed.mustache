@@ -1,0 +1,48 @@
+﻿{
+	"actor": {
+		"objectType": "Agent",
+		"name": "{{FULLNAME}}",
+		"account": {
+			"homePage": "https://{{SKILLPORTSITE}}",
+			"name": "{{SKILLPORTID}}"
+		}
+	},
+	"verb": {
+		"id": "http://adlnet.gov/expapi/verbs/completed",
+		"display": {
+			"en-US": "completed"
+		}
+	},
+	"object": {
+		"objectType": "Activity",
+		"id": "{{ASSETPATH}}",
+		"definition": {
+			"type": "http://adlnet.gov/expapi/activities/course",
+			"name": {
+				"{{LOCALE}}": "{{ASSETTITLE}}"
+			}
+{{#ASSETDESCRIPION}}
+            ,"description": {
+				"{{LOCALE}}": "{{ASSETDESCRIPION}}"
+			}
+{{/ASSETDESCRIPION}}
+		}
+	},
+    "result": {
+		"completion": true,
+		"success": true,
+		"duration": "{{DURATIONTIMESPANFORMATTED}}"
+   {{#SCORERAW}}
+		,"score": {
+			"scaled": {{SCORESCALED}},
+			"raw": {{SCORERAW}},
+			"min": {{SCOREMIN}},
+			"max": {{SCOREMAX}}
+		}
+    {{/SCORERAW}}
+	},
+	"timestamp": "{{STATEMENTTIMESTAMPFORMATTED
+}}",
+	"id": "{{STATEMENTID}}",
+	"version": "1.0.1"
+}
