@@ -88,6 +88,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\XAPI\ADL\Verbs.cs" />
+    <Compile Include="Constants\XAPI\Percipio\Verbs.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Helpers\GuidUtility.cs" />
     <Compile Include="Helpers\Networking.cs" />
@@ -121,5 +123,6 @@
     <None Include="packages.config" />
     <None Include="REPORTEXPORTTEMPLATES.docx" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

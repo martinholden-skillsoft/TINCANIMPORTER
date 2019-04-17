@@ -32,17 +32,31 @@
 		"completion": true,
 		"success": true,
 		"duration": "{{DURATIONTIMESPANFORMATTED}}"
-   {{#SCORERAW}}
+{{#SCORERAW}}
 		,"score": {
 			"scaled": {{SCORESCALED}},
 			"raw": {{SCORERAW}},
 			"min": {{SCOREMIN}},
 			"max": {{SCOREMAX}}
 		}
-    {{/SCORERAW}}
+{{/SCORERAW}}
 	},
-	"timestamp": "{{STATEMENTTIMESTAMPFORMATTED
-}}",
+    "context": {
+        "contextActivities": {
+            "category": [
+                {
+                    "id": "https://{{SKILLPORTSITE}}",
+                    "definition": {
+                        "type": "http://id.tincanapi.com/activitytype/source",
+                        "name": {
+                            "en-US": "Skillsoft Skillport Platform"
+                        }
+                    }
+                }
+            ]
+        }
+    },
+	"timestamp": "{{STATEMENTTIMESTAMPFORMATTED}}",
 	"id": "{{STATEMENTID}}",
 	"version": "1.0.1"
 }

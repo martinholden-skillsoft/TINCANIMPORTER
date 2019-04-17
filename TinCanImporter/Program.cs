@@ -86,42 +86,6 @@ namespace TinCanImporter
             return hashtable;
         }
 
-        private static Uri GetExperiencedVerbUri()
-        {
-            return new Uri("http://adlnet.gov/expapi/verbs/experienced");
-        }
-
-        /// <summary>
-        /// Gets the experienced verb.
-        /// </summary>
-        /// <returns></returns>
-        private static Verb GetExperiencedVerb()
-        {
-            var verb = new Verb();
-            verb.id = GetExperiencedVerbUri();
-            verb.display = new LanguageMap();
-            verb.display.Add("en-US", "experienced");
-            return verb;
-        }
-
-        private static Uri GetCompletedVerbUri()
-        {
-            return new Uri("http://adlnet.gov/expapi/verbs/completed");
-        }
-
-        /// <summary>
-        /// Gets the completed verb.
-        /// </summary>
-        /// <returns></returns>
-        private static Verb GetCompletedVerb()
-        {
-            var verb = new Verb();
-            verb.id = GetCompletedVerbUri();
-            verb.display = new LanguageMap();
-            verb.display.Add("en-US", "completed");
-            return verb;
-        }
-
         /// <summary>
         /// Gets the unique statement identifier.
         /// </summary>
@@ -168,7 +132,7 @@ namespace TinCanImporter
         /// <returns></returns>
         private static Statement GetExperiencedStatement(SkillportUsageRecord usageRecord)
         {
-            Verb verb = GetExperiencedVerb();
+            Verb verb = Constants.XAPI.ADL.Verbs.Experienced;
             usageRecord.STATEMENTID = GetUniqueStatementId(usageRecord, verb);
 
             var template = stubbleLoader.Load("experienced");
@@ -191,7 +155,7 @@ namespace TinCanImporter
         /// <returns></returns>
         private static Statement GetCompletedStatement(SkillportUsageRecord usageRecord)
         {
-            Verb verb = GetCompletedVerb();
+            Verb verb = Constants.XAPI.ADL.Verbs.Completed;
             usageRecord.STATEMENTID = GetUniqueStatementId(usageRecord, verb);
 
             var template = stubbleLoader.Load("completed");
